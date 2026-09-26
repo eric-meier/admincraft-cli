@@ -1,14 +1,14 @@
-const WebSocket = require('ws');
-const jwt = require('jsonwebtoken');
-const readline = require('readline');
+import WebSocket from 'ws';
+import jwt from 'jsonwebtoken';
+import * as readline from 'node:readline';
 
 const SECRET_KEY = process.env.ADMIN_SECRET_KEY;
-const PORT = 8081;
+const WS_URL = process.env.WS_URL;
+const USERID = process.env.USERID;
 
-// Create a JWT signed with the secret key 'doodoo'
-const token = jwt.sign({ userId: "Spag", scope: "admin" }, SECRET_KEY);
+const token = jwt.sign({ userId: USERID, scope: "admin" }, SECRET_KEY);
 
-const ws = new WebSocket(`wss://ws-survival.ericjmeier.com/?token=${encodeURIComponent(token)}`);
+const ws = new WebSocket(`${WS_URL}/?token=${encodeURIComponent(token)}`);
 
 ws.on('open', () => {
   console.log("✅ Authenticated & Connected to Minecraft Server!");

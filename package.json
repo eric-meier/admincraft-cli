@@ -1,4 +1,7 @@
 {
+  "name": "admincraft-cli",
+  "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "jsonwebtoken": "^9.0.3",
     "ws": "^8.22.0"
