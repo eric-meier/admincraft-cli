@@ -11,7 +11,7 @@ const token = jwt.sign({ userId: USERID, scope: "admin" }, SECRET_KEY);
 const ws = new WebSocket(`${WS_URL}/?token=${encodeURIComponent(token)}`);
 
 ws.on('open', () => {
-  console.log("✅ Authenticated & Connected to Minecraft Server!");
+  console.log("Authenticated & Connected to Minecraft Server!");
   console.log("Type any command (e.g., 'list', 'say Hello world', 'time set day') and hit Enter.");
   console.log("Type 'exit' or 'quit' to close the connection.\n");
 
@@ -48,17 +48,17 @@ ws.on('open', () => {
     readline.clearLine(process.stdout, 0);
     readline.cursorTo(process.stdout, 0);
 
-    console.log(`📥 ${data.toString()}`);
+    console.log(`${data.toString()}`);
     rl.prompt();
   });
 
   ws.on('close', () => {
-    console.log("\n❌ Server connection closed.");
+    console.log("\nServer connection closed.");
     rl.close();
     process.exit(0);
   });
 });
 
 ws.on('error', (err) => {
-  console.error("⚠️ Socket error:", err.message);
+  console.error("Socket error:", err.message);
 });
