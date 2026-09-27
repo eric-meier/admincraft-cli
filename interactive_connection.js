@@ -6,7 +6,7 @@ const SECRET_KEY = process.env.ADMIN_SECRET_KEY;
 const WS_URL = process.env.WS_URL;
 const USERID = process.env.USERID;
 
-const token = jwt.sign({ userId: USERID, scope: "admin" }, SECRET_KEY);
+const token = jwt.sign({ userId: USERID, scope: "admin" }, SECRET_KEY, { expiresIn: '4h' });
 
 const ws = new WebSocket(`${WS_URL}/?token=${encodeURIComponent(token)}`);
 
