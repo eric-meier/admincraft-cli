@@ -11,11 +11,9 @@ const token = jwt.sign({ userId: USERID, scope: "admin" }, SECRET_KEY, { expires
 const ws = new WebSocket(`${WS_URL}/?token=${encodeURIComponent(token)}`);
 
 ws.on('open', () => {
-  console.log("Authenticated & Connected to Minecraft Server!");
-  console.log("Type any command (e.g., 'list', 'say Hello world', 'time set day') and hit Enter.");
-  console.log("Type 'exit' or 'quit' to close the connection.\n");
+  console.log("Connected to admincraft websocket.");
+  console.log("Type 'exit' or 'quit' to close the connection.");
 
-  // 1. Create interactive terminal interface
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -24,7 +22,6 @@ ws.on('open', () => {
 
   rl.prompt();
 
-  // 2. Listen for line input from terminal
   rl.on('line', (input) => {
     const command = input.trim();
 
@@ -42,9 +39,7 @@ ws.on('open', () => {
     rl.prompt();
   });
 
-  // 3. Print server outputs cleanly without breaking the prompt line
   ws.on('message', (data) => {
-    // Clear current line to prevent overwriting the prompt text
     readline.clearLine(process.stdout, 0);
     readline.cursorTo(process.stdout, 0);
 
@@ -53,7 +48,7 @@ ws.on('open', () => {
   });
 
   ws.on('close', () => {
-    console.log("\nServer connection closed.");
+    console.log("Server connection closed.");
     rl.close();
     process.exit(0);
   });
